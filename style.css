@@ -1,0 +1,560 @@
+/* ===== RESET & BASE ===== */
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+:root {
+    --primary:#2563eb; --primary-dark:#1d4ed8; --secondary:#10b981;
+    --danger:#ef4444; --warning:#f59e0b;
+    --gray-50:#f9fafb; --gray-100:#f3f4f6; --gray-200:#e5e7eb;
+    --gray-300:#d1d5db; --gray-400:#9ca3af; --gray-600:#4b5563; --gray-700:#374151;
+    --gray-800:#1f2937; --gray-900:#111827;
+    --shadow:0 1px 3px rgba(0,0,0,.1);
+    --shadow-lg:0 10px 15px -3px rgba(0,0,0,.1);
+}
+
+body {
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    background:var(--gray-100); color:var(--gray-800); line-height:1.5; overflow-x:hidden;
+}
+
+/* ===== HEADER ===== */
+.header {
+    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    color:#fff; padding:1rem; position:fixed; top:0; left:0; right:0;
+    z-index:1000; box-shadow:var(--shadow-lg);
+}
+.header-content { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+.logo { font-size:1.5rem; font-weight:bold; display:flex; align-items:center; gap:.5rem; }
+.menu-toggle { background:rgba(255,255,255,.2); border:none; color:#fff; padding:.5rem; border-radius:.5rem; cursor:pointer; font-size:1.5rem; }
+
+/* ===== NAVIGATION ===== */
+.nav { position:fixed; top:0; left:-280px; width:280px; height:100vh; background:#fff; z-index:1001; transition:left .3s; box-shadow:var(--shadow-lg); overflow-y:auto; }
+.nav.active { left:0; }
+.nav-header { background:var(--primary); color:#fff; padding:1.5rem 1rem; text-align:center; position:relative; }
+.nav-close { position:absolute; top:1rem; right:1rem; background:rgba(255,255,255,.2); border:none; color:#fff; width:2rem; height:2rem; border-radius:50%; cursor:pointer; font-size:1.25rem; }
+.nav-menu { list-style:none; padding:1rem 0; }
+.nav-menu li { border-bottom:1px solid var(--gray-100); }
+.nav-menu a { display:flex; align-items:center; gap:1rem; padding:1rem 1.5rem; color:var(--gray-700); text-decoration:none; }
+.nav-menu a:hover,.nav-menu a.active { background:var(--gray-50); color:var(--primary); }
+.nav-menu .icon { font-size:1.25rem; width:24px; }
+
+.overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1000; display:none; }
+.overlay.active { display:block; }
+
+/* ===== MAIN ===== */
+.main { margin-top:80px; padding:1rem; max-width:1200px; margin-left:auto; margin-right:auto; padding-bottom:100px; }
+.page { display:none; animation:fadeIn .3s; }
+.page.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* ===== CARDS ===== */
+.card { background:#fff; border-radius:1rem; padding:1.5rem; margin-bottom:1rem; box-shadow:var(--shadow); }
+.card-header { font-size:1.25rem; font-weight:600; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center; }
+
+/* ===== STATS ===== */
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+.stat-card { background:#fff; padding:1.5rem; border-radius:1rem; box-shadow:var(--shadow); text-align:center; }
+.stat-icon { font-size:2rem; margin-bottom:.5rem; }
+.stat-value { font-size:1.5rem; font-weight:bold; color:var(--primary); }
+.stat-label { color:var(--gray-600); font-size:.875rem; }
+
+/* ===== BUTTONS ===== */
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.75rem 1.5rem; border:none; border-radius:.5rem; font-size:1rem; font-weight:500; cursor:pointer; transition:all .2s; text-decoration:none; }
+.btn-primary { background:var(--primary); color:#fff; }
+.btn-primary:hover { background:var(--primary-dark); transform:translateY(-1px); box-shadow:var(--shadow-lg); }
+.btn-secondary { background:var(--gray-200); color:var(--gray-700); }
+.btn-success { background:var(--secondary); color:#fff; }
+.btn-danger { background:var(--danger); color:#fff; }
+.btn-warning { background:var(--warning); color:#fff; }
+.btn-sm { padding:.5rem 1rem; font-size:.875rem; }
+.btn-block { width:100%; }
+
+/* ===== FORMS ===== */
+.form-group { margin-bottom:1rem; }
+.form-label { display:block; margin-bottom:.5rem; font-weight:500; color:var(--gray-700); }
+.form-control { width:100%; padding:.75rem; border:2px solid var(--gray-200); border-radius:.5rem; font-size:1rem; transition:all .2s; font-family:inherit; }
+.form-control:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(37,99,235,.1); }
+select.form-control { cursor:pointer; }
+textarea.form-control { resize:vertical; min-height:100px; }
+.form-row { display:grid; grid-template-columns:1fr; gap:1rem; }
+
+/* ===== SEARCH ===== */
+.search-bar { display:flex; gap:.5rem; margin-bottom:1rem; }
+.search-bar input { flex:1; }
+
+/* ===== TABLE ===== */
+.table-container { overflow-x:auto; margin-top:1rem; }
+table { width:100%; border-collapse:collapse; font-size:.875rem; }
+th,td { padding:.75rem; text-align:left; border-bottom:1px solid var(--gray-200); }
+th { background:var(--gray-50); font-weight:600; color:var(--gray-700); white-space:nowrap; }
+tr:hover { background:var(--gray-50); }
+
+/* ===== BADGES ===== */
+.badge { display:inline-block; padding:.25rem .75rem; border-radius:9999px; font-size:.75rem; font-weight:600; }
+.badge-success { background:#d1fae5; color:#065f46; }
+.badge-warning { background:#fef3c7; color:#92400e; }
+.badge-danger { background:#fee2e2; color:#991b1b; }
+.badge-info { background:#dbeafe; color:#1e40af; }
+.badge-secondary { background:#e5e7eb; color:#374151; }
+
+/* ===== MODAL ===== */
+.modal { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:2000; display:none; align-items:center; justify-content:center; padding:1rem; }
+.modal.active { display:flex; }
+.modal-content { background:#fff; border-radius:1rem; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; animation:modalSlide .3s; }
+.modal-large { max-width:900px; }
+@keyframes modalSlide { from{transform:translateY(-50px);opacity:0} to{transform:translateY(0);opacity:1} }
+.modal-header { padding:1.5rem; border-bottom:1px solid var(--gray-200); display:flex; justify-content:space-between; align-items:center; }
+.modal-body { padding:1.5rem; }
+.modal-footer { padding:1.5rem; border-top:1px solid var(--gray-200); display:flex; gap:.5rem; justify-content:flex-end; }
+.modal-close { background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--gray-600); }
+
+/* ===== FAB ===== */
+.fab { position:fixed; bottom:100px; right:1rem; width:56px; height:56px; border-radius:50%; background:var(--primary); color:#fff; border:none; box-shadow:var(--shadow-lg); font-size:1.5rem; cursor:pointer; z-index:999; display:flex; align-items:center; justify-content:center; transition:transform .2s; }
+.fab:hover { transform:scale(1.1); }
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; background:#fff; box-shadow:0 -2px 10px rgba(0,0,0,.1); display:flex; justify-content:space-around; padding:.5rem 0; z-index:998; }
+.bottom-nav-item { display:flex; flex-direction:column; align-items:center; gap:.25rem; padding:.5rem 1rem; color:var(--gray-600); text-decoration:none; font-size:.75rem; }
+.bottom-nav-item.active { color:var(--primary); }
+.bottom-nav-item .icon { font-size:1.5rem; }
+
+/* ===== PDV ===== */
+.pdv-layout { display:grid; grid-template-columns:1fr; gap:1rem; }
+.product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1rem; }
+.product-card { background:#fff; border-radius:.75rem; overflow:hidden; box-shadow:var(--shadow); cursor:pointer; transition:transform .2s; }
+.product-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.product-image { width:100%; height:150px; background:var(--gray-100); display:flex; align-items:center; justify-content:center; font-size:3rem; }
+.product-info { padding:1rem; }
+.product-name { font-weight:600; margin-bottom:.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.product-price { color:var(--primary); font-weight:bold; font-size:1.125rem; }
+.product-stock { font-size:.75rem; color:var(--gray-600); }
+
+/* ===== CART ===== */
+.cart-item { display:flex; gap:1rem; padding:1rem; background:var(--gray-50); border-radius:.5rem; margin-bottom:.5rem; }
+.cart-item-info { flex:1; }
+.cart-item-name { font-weight:600; margin-bottom:.25rem; }
+.cart-item-price { color:var(--primary); font-weight:bold; }
+.cart-item-qty { display:flex; align-items:center; gap:.5rem; margin-top:.5rem; }
+.qty-btn { width:28px; height:28px; border-radius:50%; border:1px solid var(--gray-300); background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.cart-total { font-size:1.25rem; font-weight:bold; text-align:right; padding:1rem; border-top:2px solid var(--gray-200); margin-top:1rem; }
+
+/* ===== ALERTS ===== */
+.alert { padding:1rem; border-radius:.5rem; margin-bottom:1rem; display:flex; align-items:center; gap:.75rem; }
+.alert-success { background:#d1fae5; color:#065f46; }
+.alert-danger { background:#fee2e2; color:#991b1b; }
+.alert-warning { background:#fef3c7; color:#92400e; }
+
+/* ===== CHECKBOX ===== */
+.checkbox-label { display:inline-flex; align-items:center; gap:.5rem; cursor:pointer; }
+.checkbox-label input { cursor:pointer; }
+
+/* ===== OS CARDS ===== */
+.os-card { border-left:4px solid var(--primary); margin-bottom:1rem; padding:1rem; background:#fff; border-radius:.5rem; box-shadow:var(--shadow); }
+.os-card.em-andamento { border-left-color:var(--warning); }
+.os-card.concluido { border-left-color:var(--secondary); }
+.os-card.entregue { border-left-color:var(--gray-300); }
+.os-header { display:flex; justify-content:space-between; align-items:start; margin-bottom:.5rem; }
+.os-number { font-weight:bold; color:var(--primary); }
+.os-client { font-weight:600; margin-bottom:.25rem; }
+.os-info { color:var(--gray-600); font-size:.875rem; }
+.os-footer { display:flex; justify-content:space-between; align-items:center; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--gray-200); }
+
+/* ===== WARRANTY ===== */
+.warranty-info { background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; padding:1rem; border-radius:.75rem; margin-top:1rem; display:flex; align-items:center; gap:1rem; }
+.warranty-icon { font-size:2rem; }
+.warranty-text { flex:1; }
+.warranty-days { font-size:1.5rem; font-weight:bold; }
+
+/* ============================================ */
+/* ===== BLOCO CADU CELL - ESTILO FIEL ===== */
+/* ============================================ */
+.bloco-form { background:#fff; border:2px solid var(--gray-800); border-radius:0; padding:1.5rem; font-family:'Arial',sans-serif; }
+
+.bloco-header { display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid var(--gray-800); padding-bottom:1rem; margin-bottom:1rem; }
+.bloco-logo h1 { font-size:2.5rem; font-weight:900; letter-spacing:2px; color:var(--gray-800); margin:0; }
+.bloco-subtitulo { background:var(--gray-800); color:#fff; padding:.25rem .75rem; font-size:.75rem; font-weight:bold; letter-spacing:1px; display:inline-block; margin-top:.25rem; }
+.bloco-servicos { text-align:right; font-size:.8rem; font-weight:bold; color:var(--gray-700); line-height:1.6; }
+
+.bloco-linha { margin-bottom:.75rem; }
+.bloco-linha label { font-weight:bold; font-size:.85rem; color:var(--gray-800); display:block; margin-bottom:.25rem; }
+.bloco-linha-dupla { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.bloco-linha-tripla { display:grid; grid-template-columns:2fr 1fr 1fr; gap:1rem; }
+
+.form-control-bloco { width:100%; padding:.5rem; border:1px solid var(--gray-300); border-radius:0; font-size:.9rem; font-family:inherit; background:#fff; }
+.form-control-bloco:focus { outline:none; border-color:var(--primary); }
+.form-control-sm { padding:.4rem; border:1px solid var(--gray-300); font-size:.9rem; }
+.form-control-inline { padding:.25rem .5rem; border:1px solid var(--gray-300); font-size:.85rem; width:120px; }
+
+.bloco-tipo { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+.bloco-tipo .checkbox-label { font-weight:bold; font-size:.85rem; }
+
+.bloco-defeito label, .bloco-check-satisfacao label, .bloco-senha label { font-weight:bold; font-size:.8rem; margin-bottom:.25rem; display:block; }
+
+.check-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.25rem; text-align:center; font-size:1.5rem; color:var(--gray-300); margin-top:.5rem; }
+
+.bloco-checkboxes { border:1px solid var(--gray-300); padding:.75rem; margin:1rem 0; background:var(--gray-50); }
+.bloco-checkboxes-linha { display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:.5rem; align-items:center; }
+.bloco-checkboxes-linha:last-child { margin-bottom:0; }
+.bloco-checkboxes-linha .checkbox-label { font-size:.8rem; font-weight:600; }
+
+/* ===== TABELA DE ITENS ===== */
+.bloco-tabela-container { margin:1rem 0; }
+.bloco-tabela { width:100%; border-collapse:collapse; border:2px solid var(--gray-800); }
+.bloco-tabela th { 
+    background:var(--gray-800); color:#fff; padding:.5rem; 
+    text-align:left; font-size:.85rem; border:1px solid var(--gray-800); 
+}
+.bloco-tabela td { 
+    border:1px solid var(--gray-300); padding:2px; 
+    background:#fff;
+}
+
+/* Inputs da tabela - SEMPRE EDITÁVEIS */
+.bloco-tabela td input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 2px;
+    font-size: .9rem;
+    font-family: inherit;
+    background: #fff;
+    color: #1f2937;
+    box-sizing: border-box;
+    display: block;
+    min-height: 36px;
+    position: relative;
+    z-index: 1;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.bloco-tabela td input:focus {
+    outline: 2px solid var(--primary);
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+.bloco-tabela td input[readonly] {
+    background: #f3f4f6;
+    cursor: not-allowed;
+    color: #374151;
+}
+
+.bloco-tabela td input:hover:not([readonly]) {
+    border-color: var(--primary);
+}
+
+.tabela-quant { text-align:center; }
+.tabela-desc { text-align:left; }
+.tabela-valor { text-align:right; }
+.tabela-total { text-align:right; font-weight:bold; background:var(--gray-50); }
+
+/* Botão adicionar item */
+.btn-add-item {
+    margin-top: .5rem;
+    background: var(--gray-200);
+    color: var(--gray-700);
+    border: 1px dashed var(--gray-400);
+    padding: .5rem 1rem;
+    cursor: pointer;
+    border-radius: .25rem;
+    font-size: .85rem;
+    width: 100%;
+}
+.btn-add-item:hover { background: var(--gray-300); }
+
+/* Totais */
+.bloco-totais { margin:1rem 0; }
+.bloco-totais-labels { max-width:350px; margin-left:auto; }
+.totais-linha { display:flex; justify-content:space-between; align-items:center; margin-bottom:.5rem; padding:.5rem; border:1px solid var(--gray-300); }
+.totais-linha label { font-weight:bold; font-size:.9rem; }
+.totais-input { width:120px; text-align:right; font-weight:bold; }
+.totais-linha-destaque { background:var(--gray-800); color:#fff; border-color:var(--gray-800); }
+.totais-linha-destaque label { color:#fff; }
+.totais-linha-destaque .totais-input { background:var(--gray-800); color:#fff; border:none; }
+
+/* Textos Legais */
+.bloco-textos-legais { margin:1rem 0; padding:.75rem; background:var(--gray-50); border-left:3px solid var(--gray-800); font-size:.8rem; }
+.texto-legal { margin-bottom:.5rem; }
+.texto-legal-destaque { font-weight:bold; margin-bottom:.5rem; color:var(--danger); }
+
+/* Prazos */
+.bloco-prazos { display:flex; flex-wrap:wrap; gap:1rem; margin:1rem 0; padding:.75rem; border:1px solid var(--gray-300); }
+.bloco-prazos .checkbox-label { font-weight:bold; font-size:.9rem; }
+
+/* Obs Garantia */
+.bloco-obs-garantia { font-size:.75rem; color:var(--gray-600); margin:1rem 0; padding-left:1rem; }
+.bloco-obs-garantia ul { list-style:disc; }
+.bloco-obs-garantia li { margin-bottom:.25rem; }
+
+/* Assinaturas */
+.bloco-assinaturas { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:2rem 0 1rem; }
+.assinatura-box { text-align:center; }
+.assinatura-linha { border-top:1px solid var(--gray-800); margin-bottom:.5rem; height:60px; }
+.assinatura-box p { font-size:.8rem; font-weight:bold; }
+
+/* Ações */
+.bloco-acoes { display:flex; gap:.5rem; justify-content:flex-end; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--gray-200); flex-wrap:wrap; }
+
+/* ===== UTILITY ===== */
+.text-center { text-align:center; }
+.text-right { text-align:right; }
+.mb-1 { margin-bottom:.5rem; }
+.mb-2 { margin-bottom:1rem; }
+.mb-3 { margin-bottom:1.5rem; }
+.mt-1 { margin-top:.5rem; }
+.mt-2 { margin-top:1rem; }
+.hidden { display:none !important; }
+.no-print { display:block; }
+
+/* ===== RESPONSIVE ===== */
+@media (min-width:768px) {
+    .form-row { grid-template-columns:repeat(2,1fr); }
+    .form-row-3 { grid-template-columns:repeat(3,1fr); }
+    .bottom-nav { display:none; }
+    .fab { bottom:2rem; right:2rem; }
+    .pdv-layout { grid-template-columns:2fr 1fr; }
+}
+
+@media (max-width:767px) {
+    .header .logo span { display:none; }
+    .stats-grid { grid-template-columns:repeat(2,1fr); }
+    table { font-size:.75rem; }
+    th,td { padding:.5rem; }
+    .bloco-linha-dupla { grid-template-columns:1fr; }
+    .bloco-linha-tripla { grid-template-columns:1fr; }
+    .bloco-assinaturas { grid-template-columns:1fr; gap:1rem; }
+    .bloco-tipo { flex-direction:column; align-items:flex-start; }
+    .bloco-checkboxes-linha { flex-direction:column; align-items:flex-start; gap:.5rem; }
+    .bloco-logo h1 { font-size:1.8rem; }
+}
+
+/* ============================================ */
+/* ===== PRINT - CORRIGIDO PARA 1 PÁGINA ===== */
+/* ============================================ */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
+    
+    /* Esconde TUDO com display:none (não visibility) */
+    body * {
+        display: none !important;
+    }
+    
+    /* Reset do body */
+    body {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 11pt !important;
+        color: #000 !important;
+    }
+    
+    /* Mostra apenas o formulário da OS */
+    #nova-os,
+    #nova-os *,
+    .bloco-form,
+    .bloco-form * {
+        display: revert !important;
+    }
+    
+    /* Esconde elementos específicos dentro do formulário */
+    #nova-os .bloco-acoes,
+    #nova-os button,
+    #nova-os .no-print {
+        display: none !important;
+    }
+    
+    /* Ajusta o container principal */
+    .main {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        position: static !important;
+    }
+    
+    /* Ajusta o formulário */
+    .bloco-form {
+        border: 2px solid #000 !important;
+        padding: 10px !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Ajusta tamanhos para caber em 1 página */
+    .bloco-logo h1 {
+        font-size: 22pt !important;
+        margin: 0 !important;
+    }
+    
+    .bloco-subtitulo {
+        font-size: 9pt !important;
+        padding: 2px 6px !important;
+    }
+    
+    .bloco-servicos {
+        font-size: 9pt !important;
+    }
+    
+    .bloco-header {
+        padding-bottom: 6px !important;
+        margin-bottom: 6px !important;
+        border-bottom-width: 2px !important;
+    }
+    
+    .bloco-linha {
+        margin-bottom: 5px !important;
+    }
+    
+    .bloco-linha label {
+        font-size: 10pt !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .form-control-bloco {
+        padding: 3px 4px !important;
+        font-size: 10pt !important;
+        border: 1px solid #666 !important;
+    }
+    
+    .bloco-checkboxes {
+        padding: 5px !important;
+        margin: 5px 0 !important;
+    }
+    
+    .bloco-checkboxes-linha {
+        gap: 10px !important;
+        margin-bottom: 3px !important;
+    }
+    
+    .bloco-checkboxes-linha .checkbox-label {
+        font-size: 10pt !important;
+    }
+    
+    /* Tabela compacta */
+    .bloco-tabela {
+        font-size: 10pt !important;
+    }
+    
+    .bloco-tabela th {
+        padding: 4px !important;
+        font-size: 10pt !important;
+        background: #ddd !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .bloco-tabela td {
+        padding: 0 !important;
+    }
+    
+    .bloco-tabela td input {
+        padding: 3px 5px !important;
+        font-size: 10pt !important;
+        border: 1px solid #999 !important;
+        min-height: 22px !important;
+        background: transparent !important;
+    }
+    
+    /* Totais compactos */
+    .bloco-totais {
+        margin: 5px 0 !important;
+    }
+    
+    .totais-linha {
+        padding: 4px !important;
+        margin-bottom: 3px !important;
+    }
+    
+    .totais-linha label {
+        font-size: 11pt !important;
+    }
+    
+    .totais-input {
+        font-size: 11pt !important;
+        width: 90px !important;
+    }
+    
+    .totais-linha-destaque {
+        background: #000 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* Textos legais compactos */
+    .bloco-textos-legais {
+        padding: 5px !important;
+        margin: 5px 0 !important;
+        font-size: 9pt !important;
+    }
+    
+    .texto-legal, .texto-legal-destaque {
+        margin-bottom: 3px !important;
+        font-size: 9pt !important;
+    }
+    
+    /* Prazos compactos */
+    .bloco-prazos {
+        padding: 5px !important;
+        margin: 5px 0 !important;
+        gap: 10px !important;
+    }
+    
+    .bloco-prazos .checkbox-label {
+        font-size: 10pt !important;
+    }
+    
+    /* Obs garantia compacta */
+    .bloco-obs-garantia {
+        font-size: 9pt !important;
+        margin: 5px 0 !important;
+        padding-left: 10px !important;
+    }
+    
+    .bloco-obs-garantia li {
+        margin-bottom: 2px !important;
+    }
+    
+    /* Assinaturas */
+    .bloco-assinaturas {
+        margin: 10px 0 0 !important;
+        gap: 15px !important;
+    }
+    
+    .assinatura-linha {
+        height: 50px !important;
+    }
+    
+    .assinatura-box p {
+        font-size: 10pt !important;
+    }
+    
+    /* Evita quebra de página */
+    .bloco-header,
+    .bloco-linha,
+    .bloco-checkboxes,
+    .bloco-tabela-container,
+    .bloco-totais,
+    .bloco-textos-legais,
+    .bloco-prazos,
+    .bloco-obs-garantia,
+    .bloco-assinaturas {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    
+    /* Checkbox e radio na impressão */
+    input[type="checkbox"],
+    input[type="radio"] {
+        -webkit-appearance: auto !important;
+        appearance: auto !important;
+        width: 12px !important;
+        height: 12px !important;
+    }
+}

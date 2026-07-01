@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2563eb">
+    <title>CADU CELL - Sistema de Gestão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">📱 <span>CADU CELL</span></div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-header">
+            <button class="nav-close" onclick="toggleMenu()">×</button>
+            <h3>CADU CELL</h3>
+            <p>Assistência Técnica Especializada</p>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#dashboard" class="nav-link active" onclick="showPage('dashboard')"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="#nova-os" class="nav-link" onclick="showPage('nova-os')"><span class="icon">📝</span> Nova OS/Pedido</a></li>
+            <li><a href="#os-lista" class="nav-link" onclick="showPage('os-lista')"><span class="icon"></span> Lista de OS</a></li>
+            <li><a href="#pdv" class="nav-link" onclick="showPage('pdv')"><span class="icon">🛒</span> PDV / Vendas</a></li>
+            <li><a href="#produtos" class="nav-link" onclick="showPage('produtos')"><span class="icon">📦</span> Produtos</a></li>
+            <li><a href="#clientes" class="nav-link" onclick="showPage('clientes')"><span class="icon">👥</span> Clientes</a></li>
+            <li><a href="#garantia" class="nav-link" onclick="showPage('garantia')"><span class="icon">🛡️</span> Garantia</a></li>
+            <li><a href="#relatorios" class="nav-link" onclick="showPage('relatorios')"><span class="icon">📈</span> Relatórios</a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Dashboard -->
+        <div id="dashboard" class="page active">
+            <h2 class="mb-3">📊 Dashboard</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value" id="stat-vendas-hoje">R$ 0</div>
+                    <div class="stat-label">Vendas Hoje</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔧</div>
+                    <div class="stat-value" id="stat-os-abertas">0</div>
+                    <div class="stat-label">OS Abertas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-value" id="stat-produtos">0</div>
+                    <div class="stat-label">Produtos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-value" id="stat-clientes">0</div>
+                    <div class="stat-label">Clientes</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    📋 OS Recentes
+                    <button class="btn btn-sm btn-primary" onclick="showPage('os-lista')">Ver Todas</button>
+                </div>
+                <div id="os-recentes-list">
+                    <p class="text-center" style="color:var(--gray-600);padding:2rem;">Nenhuma OS cadastrada</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    🛡️ Garantias Ativas
+                    <button class="btn btn-sm btn-primary" onclick="showPage('garantia')">Ver Todas</button>
+                </div>
+                <div id="garantias-list">
+                    <p class="text-center" style="color:var(--gray-600);padding:2rem;">Nenhuma garantia ativa</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nova OS / Pedido / Orçamento (FIEL AO BLOCO) -->
+        <div id="nova-os" class="page">
+            <h2 class="mb-3">📝 Nova OS / Pedido / Orçamento</h2>
+
+            <!-- Formulário estilo bloco CADU CELL -->
+            <div class="card bloco-form">
+                <!-- Cabeçalho do Bloco -->
+                <div class="bloco-header">
+                    <div class="bloco-logo">
+                        <h1>CADU CELL</h1>
+                        <p class="bloco-subtitulo">ASSISTÊNCIA TÉCNICA ESPECIALIZADA</p>
+                    </div>
+                    <div class="bloco-servicos">
+                        <p>CONSERTO</p>
+                        <p>RECUPERAÇÃO</p>
+                        <p>ACESSÓRIOS</p>
+                        <p>APARELHOS</p>
+                    </div>
+                </div>
+
+                <!-- Linha Data + Tipo -->
+                <div class="bloco-linha bloco-linha-dupla">
+                    <div class="bloco-campo">
+                        <label>DATA:</label>
+                        <input type="date" id="os-data" class="form-control-sm">
+                    </div>
+                    <div class="bloco-tipo">
+                        <label class="checkbox-label">
+                            <input type="radio" name="tipo-doc" value="orcamento">
+                            <span>ORÇAMENTO</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="tipo-doc" value="pedido" checked>
+                            <span>PEDIDO</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="radio" name="tipo-doc" value="os">
+                            <span>ORDEM DE SERVIÇO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Dados do Cliente -->
+                <div class="bloco-linha">
+                    <label>NOME:</label>
+                    <input type="text" id="os-nome" class="form-control-bloco" list="clientes-list">
+                    <datalist id="clientes-list"></datalist>
+                </div>
+                <div class="bloco-linha bloco-linha-dupla">
+                    <div class="bloco-campo">
+                        <label>CPF:</label>
+                        <input type="text" id="os-cpf" class="form-control-bloco" placeholder="000.000.000-00">
+                    </div>
+                    <div class="bloco-campo">
+                        <label>TELEFONE:</label>
+                        <input type="tel" id="os-telefone" class="form-control-bloco" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+
+                <!-- Defeito Relatado + Check Satisfação + Senha -->
+                <div class="bloco-linha bloco-linha-tripla">
+                    <div class="bloco-defeito" style="flex:2;">
+                        <label>DEFEITO RELATADO PELO CLIENTE:</label>
+                        <textarea id="os-defeito" class="form-control-bloco" rows="4"></textarea>
+                    </div>
+                    <div class="bloco-check-satisfacao">
+                        <label>FAÇA SEU CHECK<br>DE SATISFAÇÃO!</label>
+                        <div class="check-grid">
+                            <span>●</span><span>●</span><span>●</span>
+                            <span>●</span><span>●</span><span>●</span>
+                            <span>●</span><span>●</span><span>●</span>
+                        </div>
+                    </div>
+                    <div class="bloco-senha">
+                        <label>SENHA PARA RETIRADA:</label>
+                        <input type="text" id="os-senha-retirada" class="form-control-bloco" maxlength="10">
+                    </div>
+                </div>
+
+                <!-- Checkboxes do Aparelho -->
+                <div class="bloco-checkboxes">
+                    <div class="bloco-checkboxes-linha">
+                        <label class="checkbox-label"><input type="checkbox" id="chk-arranhado"> <span>ARRANHADO</span></label>
+                        <label class="checkbox-label"><input type="checkbox" id="chk-trincado"> <span>TRINCADO</span></label>
+                        <label class="checkbox-label"><input type="checkbox" id="chk-sem-chip"> <span>SEM CHIP</span></label>
+                        <label class="checkbox-label"><input type="checkbox" id="chk-com-chip"> <span>COM CHIP</span></label>
+                        <label class="checkbox-label">
+                            <span>MODELO:</span>
+                            <input type="text" id="os-modelo" class="form-control-inline">
+                        </label>
+                    </div>
+                    <div class="bloco-checkboxes-linha">
+                        <label class="checkbox-label"><input type="checkbox" id="chk-desbloqueado"> <span>DESBLOQUEADO</span></label>
+                        <label class="checkbox-label"><input type="checkbox" id="chk-sem-bateria"> <span>SEM BATERIA</span></label>
+                        <label class="checkbox-label"><input type="checkbox" id="chk-sem-cartao"> <span>SEM CARTÃO</span></label>
+                        <label class="checkbox-label"><input type="checkbox" id="chk-com-cartao"> <span>COM CARTÃO</span></label>
+                        <label class="checkbox-label">
+                            <span>IMEI 1:</span>
+                            <input type="text" id="os-imei" class="form-control-inline">
+                        </label>
+                    </div>
+                    <div class="bloco-checkboxes-linha">
+                        <label class="checkbox-label">
+                            <span>NOTA FISCAL:</span>
+                            <input type="radio" name="nf" value="sim"> <span>SIM</span>
+                            <input type="radio" name="nf" value="nao" checked> <span>NÃO</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <span>GARANTIA:</span>
+                            <input type="radio" name="garantia" value="sim" checked> <span>SIM</span>
+                            <input type="radio" name="garantia" value="nao"> <span>NÃO</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Tabela de Itens (igual ao bloco) -->
+                <div class="bloco-tabela-container">
+                    <table class="bloco-tabela">
+                        <thead>
+                            <tr>
+                                <th style="width:8%;">QUANT.</th>
+                                <th style="width:52%;">DESCRIÇÃO</th>
+                                <th style="width:20%;">VALOR UNIT.</th>
+                                <th style="width:20%;">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-itens">
+                            <!-- Linhas dinâmicas -->
+                        </tbody>
+                    </table>
+                    <button class="btn btn-sm btn-secondary mt-1" onclick="adicionarLinhaTabela()">+ Adicionar Item</button>
+                </div>
+
+                <!-- Totais -->
+                <div class="bloco-totais">
+                    <div class="bloco-totais-labels">
+                        <div class="totais-linha">
+                            <label>SINAL:</label>
+                            <input type="number" step="0.01" id="os-sinal" class="form-control-bloco totais-input" oninput="calcularResta()">
+                        </div>
+                        <div class="totais-linha">
+                            <label>RESTA:</label>
+                            <input type="number" step="0.01" id="os-resta" class="form-control-bloco totais-input" readonly>
+                        </div>
+                        <div class="totais-linha totais-linha-destaque">
+                            <label>VALOR TOTAL:</label>
+                            <input type="number" step="0.01" id="os-valor-total" class="form-control-bloco totais-input" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Textos Legais -->
+                <div class="bloco-textos-legais">
+                    <p class="texto-legal">
+                        Ao preencher esta nota, o cliente autoriza o técnico a realizar o reparo no equipamento descrito acima.
+                    </p>
+                    <p class="texto-legal-destaque">
+                        ⚠️ A GARANTIA PODERÁ SER INVALIDADA CASO O APARELHO ESTEJA OXIDADO OU APRESENTE OUTROS TIPOS DE PROBLEMAS.
+                    </p>
+                    <p class="texto-legal-destaque">
+                        📅 CASO O APARELHO NÃO SEJA RETIRADO NO PRAZO DE 90 DIAS, O MESMO PODERÁ SER CONSIDERADO ABANDONO, FICANDO AUTORIZADO SEU USO PARA COMPENSAÇÃO DOS CUSTOS DO SERVIÇO REALIZADO.
+                    </p>
+                </div>
+
+                <!-- Prazos de Garantia -->
+                <div class="bloco-prazos">
+                    <label class="checkbox-label"><input type="radio" name="prazo-garantia" value="7"> <span>7 DIAS</span></label>
+                    <label class="checkbox-label"><input type="radio" name="prazo-garantia" value="30"> <span>30 DIAS</span></label>
+                    <label class="checkbox-label"><input type="radio" name="prazo-garantia" value="90" checked> <span>90 DIAS</span></label>
+                    <label class="checkbox-label"><input type="radio" name="prazo-garantia" value="90+"> <span>90+ DIAS</span></label>
+                </div>
+
+                <!-- Observações da Garantia -->
+                <div class="bloco-obs-garantia">
+                    <ul>
+                        <li>A garantia cobre peças e mão de obra. NÃO COBRE quedas, água ou mau uso.</li>
+                        <li>Todos os serviços realizados seguem o código de defesa do consumidor.</li>
+                        <li>Não nos responsabilizamos por perdas, backups ou dados pessoais.</li>
+                        <li>Consertos em módulos de placa entram em garantia apenas se o selo de garantia estiver intacto.</li>
+                    </ul>
+                </div>
+
+                <!-- Assinaturas -->
+                <div class="bloco-assinaturas">
+                    <div class="assinatura-box">
+                        <div class="assinatura-linha"></div>
+                        <p>ASS. CLIENTE</p>
+                    </div>
+                    <div class="assinatura-box">
+                        <div class="assinatura-linha"></div>
+                        <p>ASS. ASSISTÊNCIA TÉCNICA</p>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="bloco-acoes no-print">
+                    <button class="btn btn-secondary" onclick="limparFormOS()">️ Limpar</button>
+                    <button class="btn btn-primary" onclick="salvarOS()">💾 Salvar</button>
+                    <button class="btn btn-success" onclick="imprimirOS()">🖨️ Imprimir</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de OS -->
+        <div id="os-lista" class="page">
+            <h2 class="mb-3"> Lista de OS / Pedidos</h2>
+            <div class="search-bar">
+                <input type="text" class="form-control" id="os-search" placeholder="Buscar por cliente, número ou modelo..." onkeyup="searchOS()">
+            </div>
+            <div class="card">
+                <div id="os-lista-container">
+                    <p class="text-center" style="color:var(--gray-600);padding:2rem;">Nenhuma OS cadastrada</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PDV -->
+        <div id="pdv" class="page">
+            <h2 class="mb-3">🛒 PDV - Ponto de Venda</h2>
+            <div class="search-bar">
+                <input type="text" class="form-control" id="pdv-search" placeholder="Buscar produto..." onkeyup="searchPDVProducts()">
+            </div>
+            <div class="pdv-layout">
+                <div class="card">
+                    <div class="card-header">Produtos Disponíveis</div>
+                    <div id="pdv-products" class="product-grid"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        🛒 Carrinho
+                        <button class="btn btn-sm btn-danger" onclick="clearCart()">Limpar</button>
+                    </div>
+                    <div id="cart-items">
+                        <p class="text-center" style="color:var(--gray-600);padding:2rem;">Carrinho vazio</p>
+                    </div>
+                    <div class="cart-total" id="cart-total">Total: R$ 0,00</div>
+                    <button class="btn btn-success btn-block mt-2" onclick="checkout()">✓ Finalizar Venda</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produtos -->
+        <div id="produtos" class="page">
+            <h2 class="mb-3">📦 Produtos</h2>
+            <div class="search-bar">
+                <input type="text" class="form-control" id="produto-search" placeholder="Buscar produto..." onkeyup="searchProdutos()">
+                <button class="btn btn-primary" onclick="openProdutoModal()">+ Novo Produto</button>
+            </div>
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Estoque</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="produtos-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clientes -->
+        <div id="clientes" class="page">
+            <h2 class="mb-3">👥 Clientes</h2>
+            <div class="search-bar">
+                <input type="text" class="form-control" id="cliente-search" placeholder="Buscar cliente..." onkeyup="searchClientes()">
+                <button class="btn btn-primary" onclick="openClienteModal()">+ Novo Cliente</button>
+            </div>
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>CPF</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientes-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Garantia -->
+        <div id="garantia" class="page">
+            <h2 class="mb-3">🛡️ Controle de Garantia</h2>
+            <div class="alert alert-warning">️ Serviços têm garantia conforme prazo selecionado na OS</div>
+            <div class="card">
+                <div class="card-header">Garantias Ativas</div>
+                <div id="garantia-list">
+                    <p class="text-center" style="color:var(--gray-600);padding:2rem;">Nenhuma garantia ativa</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Relatórios -->
+        <div id="relatorios" class="page">
+            <h2 class="mb-3"> Relatórios</h2>
+            <div class="card">
+                <div class="card-header">Período</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Data Inicial</label>
+                        <input type="date" class="form-control" id="relatorio-data-ini">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Data Final</label>
+                        <input type="date" class="form-control" id="relatorio-data-fim">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="gerarRelatorio()">Gerar Relatório</button>
+            </div>
+            <div class="card" id="relatorio-result" style="display:none;">
+                <div class="card-header">Resultado</div>
+                <div id="relatorio-content"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FAB -->
+    <button class="fab" onclick="quickAction()" title="Ação Rápida">+</button>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <a href="#dashboard" class="bottom-nav-item active" onclick="showPage('dashboard')">
+            <span class="icon">📊</span><span>Início</span>
+        </a>
+        <a href="#nova-os" class="bottom-nav-item" onclick="showPage('nova-os')">
+            <span class="icon">📝</span><span>Nova OS</span>
+        </a>
+        <a href="#pdv" class="bottom-nav-item" onclick="showPage('pdv')">
+            <span class="icon">🛒</span><span>Vendas</span>
+        </a>
+        <a href="#produtos" class="bottom-nav-item" onclick="showPage('produtos')">
+            <span class="icon">📦</span><span>Produtos</span>
+        </a>
+        <a href="#clientes" class="bottom-nav-item" onclick="showPage('clientes')">
+            <span class="icon">👥</span><span>Clientes</span>
+        </a>
+    </nav>
+
+    <!-- Modal Produto -->
+    <div class="modal" id="produto-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cadastrar Produto</h3>
+                <button class="modal-close" onclick="closeModal('produto-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Nome do Produto *</label>
+                    <input type="text" class="form-control" id="produto-nome">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Categoria *</label>
+                    <select class="form-control" id="produto-categoria">
+                        <option value="">Selecione...</option>
+                        <option value="capinha">Capinha</option>
+                        <option value="película">Película</option>
+                        <option value="carregador">Carregador</option>
+                        <option value="cabo">Cabo</option>
+                        <option value="fone">Fone de Ouvido</option>
+                        <option value="bateria">Bateria</option>
+                        <option value="tela">Tela/Display</option>
+                        <option value="pecas">Peças</option>
+                        <option value="acessorios">Acessórios</option>
+                        <option value="celular">Celular</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Preço de Venda (R$) *</label>
+                        <input type="number" step="0.01" class="form-control" id="produto-preco">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Estoque *</label>
+                        <input type="number" class="form-control" id="produto-estoque">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descrição</label>
+                    <textarea class="form-control" id="produto-descricao" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('produto-modal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveProduto()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cliente -->
+    <div class="modal" id="cliente-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cadastrar Cliente</h3>
+                <button class="modal-close" onclick="closeModal('cliente-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Nome Completo *</label>
+                    <input type="text" class="form-control" id="cliente-nome">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="cliente-cpf" placeholder="000.000.000-00">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telefone *</label>
+                        <input type="tel" class="form-control" id="cliente-telefone" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="cliente-email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Endereço</label>
+                    <textarea class="form-control" id="cliente-endereco" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('cliente-modal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveCliente()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Visualizar OS -->
+    <div class="modal" id="os-view-modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Visualizar OS #<span id="view-os-numero"></span></h3>
+                <button class="modal-close" onclick="closeModal('os-view-modal')">×</button>
+            </div>
+            <div class="modal-body" id="os-view-content"></div>
+            <div class="modal-footer no-print">
+                <button class="btn btn-secondary" onclick="closeModal('os-view-modal')">Fechar</button>
+                <button class="btn btn-primary" id="btn-imprimir-modal" onclick="">🖨️ Imprimir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
